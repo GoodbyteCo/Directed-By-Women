@@ -37,7 +37,7 @@ label
 
 input
 {
-	width: calc(100% - 100px);
+	width: calc(100% - 105px);
 	
 	font-family: "IBM Plex Mono", monospace;
 	font-size: 1rem;
@@ -46,12 +46,6 @@ input
 	border: none;
 	border-bottom: 1px currentColor solid;
 	outline: none;
-}
-
-input:focus-visible
-{
-	background: #f4f4f4;
-	box-shadow: 0 0 0 6px #f4f4f4;
 }
 
 button
