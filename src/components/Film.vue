@@ -14,9 +14,9 @@
 			<p>Loading...</p>
 		</div>
 		<div v-if="done" class="output">
-			<p>Films Directed by women <strong>{{ women }}</strong></p>
-			<p>Total Films {{ total }}</p>
-			<p>Percentage of films directed by women <strong>{{ percentage }}</strong></p>
+			<p><strong>{{ women }}</strong> films directed by women</p>
+			<p>of total films {{ total }}</p>
+			<p>Percentage of films directed by women: <strong>{{ percentage }}</strong></p>
 		</div>
 	</div>
 </template>
