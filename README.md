@@ -10,25 +10,10 @@ A little web-app that tells you how many of the films you've watched were direct
 
 Note: the site requires that you have a public [Letterboxd](https://letterboxd.com/) account. The site uses [TMDB](https://www.themoviedb.org/)'s dataset to determine gender, and may not be accurate. Partly inspired by [James Vaughan's post](https://jamesbvaughan.com/movie-director-genders/) and [accompanying Github project](https://github.com/jamesbvaughan/gender-breakdowns) that does the same thing.
 
-## Project setup
-```
-yarn install
-```
+## Development notes
 
-### Compiles and hot-reloads for development
 ```
-yarn serve
-```
+yarn install    # install dependencies
 
-### Compiles and minifies for production
+yarn serve      # compiles & hot-reloads
 ```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
