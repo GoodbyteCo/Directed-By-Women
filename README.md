@@ -16,4 +16,6 @@ Note: the site requires that you have a public [Letterboxd](https://letterboxd.c
 yarn install    # install dependencies
 
 yarn serve      # compiles & hot-reloads
+
+yarn run build  # build to run
 ```
