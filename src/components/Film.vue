@@ -50,7 +50,8 @@ input
 
 input:focus-visible
 {
-	background: #eaeaea;
+	background: #f4f4f4;
+	box-shadow: 0 0 0 6px #f4f4f4;
 }
 
 button
