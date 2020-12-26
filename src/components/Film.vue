@@ -35,8 +35,7 @@ export default {
 			let userlist = inputted.filter(function(el) {
 				return el;
 			});
-			let url =
-				"http://127.0.0.1:8080/api?users=" + userlist.join("&users=");
+			let url = "/api?users=" + userlist.join("&users=");
 			try {
 				let vue = this;
 				fetch(url)
