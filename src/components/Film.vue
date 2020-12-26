@@ -11,7 +11,10 @@
 				v-model="users"
 			/>
 			<button v-on:click="submit()">Submit</button>
-			<div v-if="done">
+			<div v-if="started" class="output">
+				<p>Loading...</p>
+			</div>
+			<div v-if="done" class="output">
 				<p>Films Directed by women {{ women }}</p>
 				<p>Total Films {{ total }}</p>
 				<p>Percentage of films directed by women {{ percentage }}</p>
@@ -19,6 +22,51 @@
 		</div>
 	</div>
 </template>
+
+<style scoped>
+label
+{
+	display: block;
+	margin: 10px 0;
+}
+
+input
+{
+	font-family: "IBM Plex Mono", monospace;
+	font-size: 1rem;
+	line-height: 2;
+	color: inherit;
+	border: none;
+	border-bottom: 1px currentColor solid;
+	outline: none;
+}
+
+button
+{
+	cursor: pointer;
+	padding: 0 1ch;
+	margin-left: 20px;
+	
+	font-family: "IBM Plex Mono", monospace;
+	font-size: 1rem;
+	line-height: 2;
+	color: inherit;
+	background: transparent;
+	border: 1px solid currentColor;
+	outline: none;
+}
+
+button:hover, button:focus-visible
+{
+	background: #c4c4c4;
+}
+
+.output
+{
+	margin-top: 60px;
+}
+</style>
+
 <script>
 export default {
 	name: "Film",
@@ -26,11 +74,13 @@ export default {
 		return {
 			users: "",
 			info: "",
+			started: false,
 			done: false
 		};
 	},
 	methods: {
 		submit() {
+			this.started = true;
 			let inputted = this.users.split(/(?:,| )+/); //split input field on space or comma
 			let userlist = inputted.filter(function(el) {
 				return el;
