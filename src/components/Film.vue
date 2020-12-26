@@ -1,29 +1,34 @@
 <template>
-	<div>
-		<div class="input">
-			<label for="userbox">Username(s):</label>
-			<input
-				class="userfield"
-				placeholder="ex: holopollock, qjack"
-				id="userbox"
-				type="text"
-				v-on:keyup.enter="submit()"
-				v-model="users"
-			/>
-			<button v-on:click="submit()">Submit</button>
-			<div v-if="started" class="output">
-				<p>Loading...</p>
-			</div>
-			<div v-if="done" class="output">
-				<p>Films Directed by women <strong>{{ women }}</strong></p>
-				<p>Total Films {{ total }}</p>
-				<p>Percentage of films directed by women <strong>{{ percentage }}</strong></p>
-			</div>
+	<div id="layout">
+		<label for="userbox">Username(s):</label>
+		<input
+			class="userfield"
+			placeholder="ex: holopollock, qjack"
+			id="userbox"
+			type="text"
+			v-on:keyup.enter="submit()"
+			v-model="users"
+		/>
+		<button v-on:click="submit()">Submit</button>
+		<div v-if="started" class="output">
+			<p>Loading...</p>
+		</div>
+		<div v-if="done" class="output">
+			<p>Films Directed by women <strong>{{ women }}</strong></p>
+			<p>Total Films {{ total }}</p>
+			<p>Percentage of films directed by women <strong>{{ percentage }}</strong></p>
 		</div>
 	</div>
 </template>
 
 <style scoped>
+#layout
+{
+	padding: 40px;
+	max-width: 500px;
+	margin: 100px auto;
+}
+
 label
 {
 	display: block;
@@ -32,6 +37,8 @@ label
 
 input
 {
+	width: calc(100% - 200px);
+	
 	font-family: "IBM Plex Mono", monospace;
 	font-size: 1rem;
 	line-height: 2;
