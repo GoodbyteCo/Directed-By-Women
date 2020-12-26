@@ -1,9 +1,9 @@
 <template>
 	<div id="layout">
-		<label for="userbox">Username(s):</label>
+		<label for="userbox">Username:</label>
 		<input
 			class="userfield"
-			placeholder="ex: holopollock, qjack"
+			placeholder="ex: holopollock"
 			id="userbox"
 			type="text"
 			v-on:keyup.enter="submit()"
@@ -48,6 +48,11 @@ input
 	outline: none;
 }
 
+input:focus-visible
+{
+	background: #eaeaea;
+}
+
 button
 {
 	cursor: pointer;
@@ -65,7 +70,7 @@ button
 
 button:hover, button:focus-visible
 {
-	background: #c4c4c4;
+	background: #eaeaea;
 }
 
 .output
@@ -88,6 +93,7 @@ export default {
 	methods: {
 		submit() {
 			this.started = true;
+			this.done = false;
 			let inputted = this.users.split(/(?:,| )+/); //split input field on space or comma
 			let userlist = inputted.filter(function(el) {
 				return el;
