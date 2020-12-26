@@ -53,7 +53,7 @@ button
 	cursor: pointer;
 	padding: 0 1ch;
 	margin-left: 20px;
-	
+
 	font-family: "IBM Plex Mono", monospace;
 	font-size: 1rem;
 	line-height: 2;
@@ -63,8 +63,10 @@ button
 	outline: none;
 }
 
-button:hover, button:focus-visible
-{
+button:hover {
+	background: #eaeaea;
+}
+button:focus-visible {
 	background: #eaeaea;
 }
 

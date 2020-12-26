@@ -46,7 +46,10 @@ a.support {
 	font-weight: 400;
 }
 
-a.support:hover,
+a.support:hover {
+	background: #eaeaea;
+}
+
 a.support:focus-visible {
 	background: #eaeaea;
 }
