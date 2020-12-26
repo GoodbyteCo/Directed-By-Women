@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"encoding/json"
@@ -28,19 +28,6 @@ type Women struct {
 
 var apiKey string = os.Getenv("TMDB_API_KEY")
 
-func main() {
-	getWomenHandler := http.HandlerFunc(Handler)
-	http.Handle("/api", getWomenHandler)
-	log.Println("serving at :8080")
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-		log.Printf("Defaulting to port %s", port)
-	}
-
-	log.Printf("Listening on port %s", port)
-	http.ListenAndServe(":"+port, nil)
-}
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
