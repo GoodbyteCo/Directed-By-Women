@@ -37,7 +37,7 @@ label
 
 input
 {
-	width: calc(100% - 200px);
+	width: calc(100% - 100px);
 	
 	font-family: "IBM Plex Mono", monospace;
 	font-size: 1rem;
