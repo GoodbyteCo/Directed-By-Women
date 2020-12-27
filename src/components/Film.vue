@@ -1,6 +1,6 @@
 <template>
 	<div id="layout">
-		<label for="userbox">Username:</label>
+		<label for="userbox">Letterboxd username:</label>
 		<input
 			class="userfield"
 			placeholder="ex: holopollock"
