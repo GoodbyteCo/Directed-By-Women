@@ -11,7 +11,7 @@
 		/>
 		<button v-on:click="submit()">Submit</button>
 		<div v-if="started" class="output">
-			<p>Loading...</p>
+			<p id="loadbar" v-bind:class="{ loaded: done }">Loading...</p>
 		</div>
 		<div v-if="done" class="output">
 			<p><strong>{{ women }}</strong> films directed by women</p>
@@ -71,6 +71,33 @@ button:hover, button:focus-visible
 .output
 {
 	margin-top: 60px;
+}
+
+#loadbar::after
+{
+	content: ".";
+	color: transparent;
+	display: inline-block;
+	width: calc(100% - 10ch); /* 10ch ~= width of "Loading..." text */
+	
+	/* creates a ... effect that takes up the full width */
+	background-image: radial-gradient(black 10%, transparent 20%);
+	background-size: 1ch 1ch;
+	background-repeat: space no-repeat;
+	background-position: bottom right;
+	
+	animation: loading 45s steps(50);
+	animation-fill-mode: forwards;
+}
+
+#loadbar.loaded::after
+{
+	animation-play-state: paused;
+}
+
+@keyframes loading
+{
+	from { width: 0px; }
 }
 </style>
 
