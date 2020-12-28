@@ -18,6 +18,10 @@
 			<p>of total films {{ total }}</p>
 			<p>Percentage of films directed by women: <strong>{{ percentage }}</strong></p>
 		</div>
+		<div v-if="done" class="output" id="footer">
+			<p>This site is a project of <a href="https://goodbyte.ca">Goodbyte</strong> &copy;2020</p>
+			<p>Data provided by <a href="https://letterboxd.com">Letterboxd</a> and <a href="themoviedb.org">TMDB</a></p>
+		</div>
 	</div>
 </template>
 
@@ -68,9 +72,33 @@ button:hover, button:focus-visible
 	background: #eaeaea;
 }
 
+a
+{
+	text-decoration: none;
+	color: inherit;
+	font-weight: bold;
+	outline: none;
+}
+
+a:hover, a:focus-visible
+{
+	text-decoration: underline;
+}
+
 .output
 {
 	margin-top: 60px;
+}
+
+#footer
+{
+	animation: delay-reveal 1s steps(1);
+	opacity: 1;
+}
+
+@keyframes delay-reveal
+{
+	from { opactiy: 0; }
 }
 </style>
 
