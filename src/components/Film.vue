@@ -11,7 +11,12 @@
 		/>
 		<button v-on:click="submit()">Submit</button>
 		<div v-if="started" class="output">
-			<p id="loadbar">Loading...</p>
+			<p 
+				id="loadbar"
+				v-bind:class="{ loaded: done }"
+			>	
+				Loading...
+			</p>
 		</div>
 		<div v-if="done" class="output">
 			<p><strong>{{ women }}</strong> films directed by women</p>
@@ -86,8 +91,13 @@ button:hover, button:focus-visible
 	background-repeat: space no-repeat;
 	background-position: bottom right;
 	
-	animation: loading 25s steps(50);
+	animation: loading 45s steps(50);
 	animation-fill-mode: forwards;
+}
+
+#loadbar.loaded::after
+{
+	animation: none;
 }
 
 @keyframes loading
