@@ -20,7 +20,7 @@
 		</div>
 		<div v-if="done" class="output" id="footer">
 			<p>This site is a project of <a href="https://goodbyte.ca">Goodbyte</strong> &copy;2020</p>
-			<p>Data provided by <a href="https://letterboxd.com">Letterboxd</a> and <a href="themoviedb.org">TMDB</a></p>
+			<p>Data provided by <a href="https://letterboxd.com">Letterboxd</a> and <a href="https://themoviedb.org">TMDB</a></p>
 		</div>
 	</div>
 </template>
