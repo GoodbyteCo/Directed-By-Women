@@ -86,14 +86,13 @@ button:hover, button:focus-visible
 	background-repeat: space no-repeat;
 	background-position: bottom right;
 	
-	animation: loading 15s steps(50);
+	animation: loading 25s steps(50);
 	animation-fill-mode: forwards;
 }
 
 @keyframes loading
 {
 	from { width: 0px; }
-	/* to   { width: calc(100% - 10ch); } */
 }
 </style>
 
