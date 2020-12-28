@@ -19,7 +19,7 @@
 			<p>Percentage of films directed by women: <strong>{{ percentage }}</strong></p>
 		</div>
 		<div v-if="done" class="output" id="footer">
-			<p>This site is a project of <a href="https://goodbyte.ca">Goodbyte</strong> &copy;2020</p>
+			<p>This site is a project of <a href="https://goodbyte.ca">Goodbyte</a> &copy;2020</p>
 			<p>Data provided by <a href="https://letterboxd.com">Letterboxd</a> and <a href="https://themoviedb.org">TMDB</a></p>
 		</div>
 	</div>
