@@ -98,7 +98,7 @@ a:hover, a:focus-visible
 
 @keyframes delay-reveal
 {
-	from { opactiy: 0; }
+	from { opacity: 0; }
 }
 </style>
 
