@@ -160,7 +160,7 @@ export default {
 					})
 					.then(function(json) {
 						vue.info = json;
-						console.log(vue.info);
+						console.log(vue.info.notfound.join('\n'))
 						vue.done = true;
 					});
 			} catch (e) {
