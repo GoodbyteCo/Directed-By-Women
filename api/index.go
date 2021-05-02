@@ -9,6 +9,7 @@ import (
 	"os"
 	"strings"
 	"sync"
+	"sync/atomic"
 
 	"github.com/gocolly/colly"
 	"github.com/mitchellh/mapstructure"
@@ -18,12 +19,14 @@ type person struct {
 	Gender             int     `json:"gender"`
 	Job                string  `json:"job"`
 	Name               string  `json:"name"`
+	ID 				int64    `json:"id"`
 }
 
 type Women struct {
-	NumWomen int `json:"women"`
-	Total int `json:"total"`
+	NumWomen int64 `json:"women"`
+	Total int64 `json:"total"`
 	Percentage float64 `json:"percentage"`
+	NotFound []int64 `json:"notFound"`
 }
 
 var apiKey string = os.Getenv("TMDB_API_KEY")
@@ -50,8 +53,10 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 
 func scrape(username string) Women {
-	var total int 
-	var women int
+	var total int64 
+	var women int64
+	var not_found []int64
+	var not_found_lock = &sync.Mutex{}
 	sitetovisit := "https://letterboxd.com/" + username + "/films"
 	var wg sync.WaitGroup
 	c := colly.NewCollector(
@@ -63,7 +68,7 @@ func scrape(username string) Women {
 			slug := ein.Attr("data-film-slug")
 			url := ("https://letterboxd.com" + slug ) //start go routine to collect all film data
 			wg.Add(1)
-			go isWomen(url, &wg, &total, &women)
+			go isWomen(url, &wg, not_found_lock, &not_found, &total, &women)
 		})
 
 	})
@@ -84,10 +89,11 @@ func scrape(username string) Women {
 		NumWomen: women,
 		Total: total,
 		Percentage: float64(women)/float64(total)*100,
+		NotFound: not_found,
 	}
 }
 
-func isWomen(url string, wg *sync.WaitGroup, total, women *int) {
+func isWomen(url string, wg *sync.WaitGroup, not_found_lock *sync.Mutex, not_found *[]int64, total, women *int64) {
 	// fmt.Println("running")
 	hasWomen := false
 	defer wg.Done()
@@ -116,26 +122,30 @@ func isWomen(url string, wg *sync.WaitGroup, total, women *int) {
 	if readErr != nil {
 		log.Fatal(readErr)
 	}
-	var cd map[string]interface{}
-	jsonErr := json.Unmarshal(body, &cd)
+	var film_data map[string]interface{}
+	jsonErr := json.Unmarshal(body, &film_data)
 	if jsonErr != nil {
 		log.Fatal(jsonErr)
 	}
-	if cd["crew"] != nil {
-		crew := cd["crew"].([]interface{})
-		*total++
-		for _, v := range crew {
-			var crew person
-			mapstructure.Decode(v, &crew)
-			if crew.Job == "Director" {
-				if crew.Gender == 1 {
+	if film_data["crew"] != nil {
+		crew := film_data["crew"].([]interface{})
+		atomic.AddInt64(total,1)
+		for _, crew_member_json := range crew {
+			var crew_member person
+			mapstructure.Decode(crew_member_json, &crew_member)
+			if crew_member.Job == "Director" {
+				if crew_member.Gender == 0 {
+					not_found_lock.Lock()
+					*not_found = append(*not_found, crew_member.ID)
+					not_found_lock.Unlock()
+				} else if crew_member.Gender == 1 {
 					hasWomen = true
 				}
 			}
 		}
 	}
 	if hasWomen {
-		*women++
+		atomic.AddInt64(women,1)
 	}
 }
 
