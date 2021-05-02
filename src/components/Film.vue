@@ -160,15 +160,12 @@ export default {
 					})
 					.then(function(json) {
 						vue.info = json;
-						console.log(vue.info.notfound.join('\n'))
+						let tmdbPersonURL = 'https://www.themoviedb.org/person/'
+						console.log(tmdbPersonURL + vue.info.notFound.join('\n' + tmdbPersonURL))
 						vue.done = true;
 					});
 			} catch (e) {
-				this.$alert(
-					"Something went wrong. Please try again in a moment. Error:" +
-						e,
-					"An error occured"
-				);
+				alert("Something went wrong. Please try again in a moment. Error:" + e, "An error occured");
 			}
 		}
 	},
@@ -180,7 +177,7 @@ export default {
 			return this.info.total;
 		},
 		percentage: function() {
-			return this.info.percentage;
+			return this.info.percentage.toFixed(3);
 		}
 	}
 };
