@@ -94,8 +94,10 @@ func scrape(username string) Women {
 }
 
 func isWomen(url string, wg *sync.WaitGroup, not_found_lock *sync.Mutex, not_found *[]int64, total, women *int64) {
-	// fmt.Println("running")
-	hasWomen := false
+
+	isCountable := false // does the movie have gender data for a director
+	hasWomen    := false // is at least one of those directors a women
+	
 	defer wg.Done()
 	c := colly.NewCollector()
 	var id string
@@ -129,7 +131,6 @@ func isWomen(url string, wg *sync.WaitGroup, not_found_lock *sync.Mutex, not_fou
 	}
 	if film_data["crew"] != nil {
 		crew := film_data["crew"].([]interface{})
-		atomic.AddInt64(total,1)
 		for _, crew_member_json := range crew {
 			var crew_member person
 			mapstructure.Decode(crew_member_json, &crew_member)
@@ -139,10 +140,16 @@ func isWomen(url string, wg *sync.WaitGroup, not_found_lock *sync.Mutex, not_fou
 					*not_found = append(*not_found, crew_member.ID)
 					not_found_lock.Unlock()
 				} else if crew_member.Gender == 1 {
+					isCountable = true
 					hasWomen = true
+				} else {
+					isCountable = true
 				}
 			}
 		}
+	}
+	if isCountable {
+		atomic.AddInt64(total,1)
 	}
 	if hasWomen {
 		atomic.AddInt64(women,1)
