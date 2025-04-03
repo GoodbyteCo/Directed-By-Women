@@ -65,7 +65,7 @@ func scrape(username string) Women {
 	c.Limit(&colly.LimitRule{DomainGlob: "*", Parallelism: 100})
 	c.OnHTML(".poster-container", func(e *colly.HTMLElement) { //primary scarer to get url of each film that contian full information
 		e.ForEach("div.film-poster", func(i int, ein *colly.HTMLElement) {
-			slug := ein.Attr("data-film-slug")
+			slug := ein.Attr("data-target-link")
 			url := ("https://letterboxd.com" + slug ) //start go routine to collect all film data
 			wg.Add(1)
 			go isWomen(url, &wg, not_found_lock, &not_found, &total, &women)
